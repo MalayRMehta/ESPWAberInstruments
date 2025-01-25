@@ -29,9 +29,10 @@ namespace ESPW.Pages.Clients
 							{
 								clientInfo.id = "" + reader.GetInt32(0);
 								clientInfo.name = reader.GetString(1);
-								clientInfo.doses = reader.GetString(2);
-								clientInfo.time = reader.GetString(3);
-								clientInfo.mass = reader.GetString(4);
+								clientInfo.doses = "" + reader.GetInt32(2);
+								clientInfo.time = "" + reader.GetDouble(3);
+								clientInfo.mass = "" + reader.GetDouble(4);
+
 							}
 						}
 					}
