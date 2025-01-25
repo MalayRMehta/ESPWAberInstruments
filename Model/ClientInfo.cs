@@ -4,9 +4,9 @@
 	{
 		public String id;
 		public String name;
-		public String email;
+		public String doses;
 		public String time;
-		public String address;
+		public String mass;
 		public String created_at;
 
 	}

@@ -16,12 +16,12 @@ namespace ESPW.Pages.Clients
         public void OnPost() { 
         
             clientInfo.name = Request.Form["name"];
-            clientInfo.email = Request.Form["email"];
+            clientInfo.doses = Request.Form["doses"];
             clientInfo.time = Request.Form["time"];
-            clientInfo.address = Request.Form["address"];
+            clientInfo.mass = Request.Form["mass"];
 
-            if (clientInfo.name.Length == 0 || clientInfo.email.Length == 0 ||
-                clientInfo.time.Length == 0 || clientInfo.address.Length == 0)
+            if (clientInfo.name.Length == 0 || clientInfo.doses.Length == 0 ||
+                clientInfo.time.Length == 0 || clientInfo.mass.Length == 0)
             {
                 errorMessage = "All fields are required";
                 return;
@@ -34,15 +34,15 @@ namespace ESPW.Pages.Clients
                 {
                     connection.Open();
                     String sql = "INSERT INTO clients " +
-                                 "(name,email,time,address) VALUES " +
-                                 "(@name,@email,@time,@address);";
+                                 "(name,doses,time,mass) VALUES " +
+                                 "(@name,@doses,@time,@mass);";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@name", clientInfo.name);
-						command.Parameters.AddWithValue("@email", clientInfo.email);
+						command.Parameters.AddWithValue("@doses", clientInfo.doses);
 						command.Parameters.AddWithValue("@time", clientInfo.time);
-						command.Parameters.AddWithValue("@address", clientInfo.address);
+						command.Parameters.AddWithValue("@mass", clientInfo.mass);
 
                         var result = command.ExecuteNonQuery();
 					}
@@ -54,7 +54,7 @@ namespace ESPW.Pages.Clients
                 return;
             }
 
-            clientInfo.name = ""; clientInfo.email = ""; clientInfo.time = ""; clientInfo.address = "";
+            clientInfo.name = ""; clientInfo.doses = ""; clientInfo.time = ""; clientInfo.mass = "";
             successMessage = "New Client Added Correctly";
 
             Response.Redirect("/Clients/Index");

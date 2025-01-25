@@ -29,9 +29,9 @@ namespace ESPW.Pages.Clients
 							{
 								clientInfo.id = "" + reader.GetInt32(0);
 								clientInfo.name = reader.GetString(1);
-								clientInfo.email = reader.GetString(2);
+								clientInfo.doses = reader.GetString(2);
 								clientInfo.time = reader.GetString(3);
-								clientInfo.address = reader.GetString(4);
+								clientInfo.mass = reader.GetString(4);
 							}
 						}
 					}
@@ -45,12 +45,12 @@ namespace ESPW.Pages.Clients
         public void OnPost() {
 			clientInfo.id = Request.Form["id"];
 			clientInfo.name = Request.Form["name"];
-			clientInfo.email = Request.Form["email"];
+			clientInfo.doses = Request.Form["doses"];
 			clientInfo.time = Request.Form["time"];
-			clientInfo.address = Request.Form["address"];
+			clientInfo.mass = Request.Form["mass"];
 
-			if (clientInfo.id.Length == 0 || clientInfo.name.Length == 0 || clientInfo.email.Length == 0 ||
-				clientInfo.time.Length == 0 || clientInfo.address.Length == 0)
+			if (clientInfo.id.Length == 0 || clientInfo.name.Length == 0 || clientInfo.doses.Length == 0 ||
+				clientInfo.time.Length == 0 || clientInfo.mass.Length == 0)
 			{
 				errorMessage = "All fields are required";
 				return;
@@ -63,15 +63,15 @@ namespace ESPW.Pages.Clients
 				{
 					connection.Open();
 					String sql = "UPDATE clients " +
-								 " SET name = @name, email = @email, time = @time, address = @address " +
+								 " SET name = @name, doses = @doses, time = @time, mass = @mass " +
 								 " WHERE id = @id";
 
 					using (SqlCommand command = new SqlCommand(sql, connection))
 					{
 						command.Parameters.AddWithValue("@name", clientInfo.name);
-						command.Parameters.AddWithValue("@email", clientInfo.email);
+						command.Parameters.AddWithValue("@doses", clientInfo.doses);
 						command.Parameters.AddWithValue("@time", clientInfo.time);
-						command.Parameters.AddWithValue("@address", clientInfo.address);
+						command.Parameters.AddWithValue("@mass", clientInfo.mass);
 						command.Parameters.AddWithValue("@id", clientInfo.id);
 
 						command.ExecuteNonQuery();
