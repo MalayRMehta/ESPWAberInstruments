@@ -2,12 +2,12 @@
 {
 	public class ClientInfo
 	{
-		public String id;
-		public String name;
-		public String doses;
-		public String time;
-		public String mass;
-		public String created_at;
+		public String id { get; set; }
+		public String name { get; set; }
+		public String doses { get; set; }
+		public String time { get; set; }
+		public String mass { get; set; }
+		public String created_at { get; set; }
 
 	}
 }
