@@ -75,10 +75,10 @@ namespace ESPW.Pages.Clients
                 ClientInfo obj = new ClientInfo();
                 obj.id = "81";
                 obj.time = "5";
-                obj.mass = "6.6";
+                obj.mass = "2000";
                 obj.created_at = "12/12/2020";
                 obj.name = "test";
-                obj.doses = "2";
+                obj.doses = "0";
 				string response = await PostDataAsync("http://localhost:5046/ESPW/", obj); // Replace with your API endpoint
 
 				// 3. Handle the Response
@@ -89,14 +89,8 @@ namespace ESPW.Pages.Clients
 			catch (Exception ex)
 			{
 				//lblResult.Text = "Error: " + ex.Message; // Display error message
-			}
+			}			
 
-
-
-
-			Response.Redirect("http://localhost:5046/WeatherForecast/Post");
-
-            //Response.Redirect("/Clients/Index");
         }
 
 		private async Task<string> PostDataAsync(string apiUrl, ClientInfo data)
