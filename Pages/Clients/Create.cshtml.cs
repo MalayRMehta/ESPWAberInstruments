@@ -72,23 +72,25 @@ namespace ESPW.Pages.Clients
 
 			try
 			{
-                ClientInfo obj = new ClientInfo();
-                obj.id = "81";
-                obj.time = "5";
-                obj.mass = "2000";
-                obj.created_at = "12/12/2020";
-                obj.name = "test";
-                obj.doses = "0";
+				Guid guid = new Guid();
+				ClientInfo obj = new ClientInfo();
+                obj.id = guid.ToString();
+				obj.time = Request.Form["time"];
+				obj.mass = Request.Form["mass"];
+                obj.created_at = DateTime.Now.ToString();
+                obj.name = "callToWebapi";
+                obj.doses = Request.Form["doses"];
+                //change url from webapi manually
 				string response = await PostDataAsync("http://localhost:5046/ESPW/", obj); // Replace with your API endpoint
 
 				// 3. Handle the Response
 				var result = "API Response: " + response; // Display in a label (Web Forms)
-															  // Or use the response however needed (e.g., redirect, update UI)
+															
 
 			}
 			catch (Exception ex)
 			{
-				//lblResult.Text = "Error: " + ex.Message; // Display error message
+                throw ex;
 			}			
 
         }
@@ -96,13 +98,7 @@ namespace ESPW.Pages.Clients
 		private async Task<string> PostDataAsync(string apiUrl, ClientInfo data)
 		{
 			using (HttpClient client = new HttpClient())
-			{
-				// Optional: Set base address if needed
-				// client.BaseAddress = new Uri("your-base-api-url");
-
-				// Optional: Add authorization headers if required (e.g., Bearer token)
-				// client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "your-token");
-
+			{				
 				// Serialize the data to JSON
 				string json = Newtonsoft.Json.JsonConvert.SerializeObject(data); // Requires Newtonsoft.Json NuGet package
 				var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
